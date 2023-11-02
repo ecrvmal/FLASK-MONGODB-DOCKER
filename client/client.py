@@ -3,7 +3,9 @@ import pprint
 import requests
 import os
 
-from utils import hex_generator, get_user_data
+from requests import JSONDecodeError
+
+from client_utils import hex_generator, get_user_data
 
 """
 The client function sends "GET and "POST" requests to server and 
@@ -35,8 +37,13 @@ while True:
         response = requests.get(url, params=params)
 
         # Get response
-        response_dict = json.loads(response.text)
-        pprint.pprint(response_dict)
+        try:
+            response_dict = json.loads(response.text)
+            pprint.pprint(response_dict)
+        except JSONDecodeError as e:
+            print(e.response )
+
+
 
     elif mode == "G":
         url = "http://127.0.0.1:5000/list/"
@@ -47,13 +54,13 @@ while True:
         response = requests.get(url, params=params)
 
         # Get response
-        response_dict = json.loads(response.text)
-        pprint.pprint(response_dict)
-
+        try:
+            response_dict = json.loads(response.text)
+            pprint.pprint(response_dict)
+        except JSONDecodeError as e:
+            print(e.response)
 
     elif mode == "P":
-
-
         while True:
             key = input("[R]egistration | new_[M]essage | new_[P]ost | new_[L]ogin | rea[D] | Quit  : " )
             if key == "Q":
@@ -74,8 +81,11 @@ while True:
                 print(f"user_id:   {user_id}  notification_id:  {notification_id}   ")
 
                 # Get response
-                response_dict = json.loads(response.text)
-                print(response_dict)
+                try:
+                    response_dict = json.loads(response.text)
+                    print(response_dict)
+                except JSONDecodeError as e:
+                    print(e.response)
 
             if key == "M":
                 url = "http://127.0.0.1:5000/create/"
@@ -115,11 +125,15 @@ while True:
                 response = requests.post(url, data=params)
                 pprint.pprint(params)
                 # Get response
-                response_dict = json.loads(response.text)
-                print("\n")
-                pprint.pprint(response_dict)
-                with open(log_file, mode="a", encoding="utf-8") as f:
-                    f.write(f"user_id: {user_id} notification_id: {notification_id}  key: {key} \n")
+                try:
+                    response_dict = json.loads(response.text)
+                    print("\n")
+                    pprint.pprint(response_dict)
+                    with open(log_file, mode="a", encoding="utf-8") as f:
+                        f.write(f"user_id: {user_id} notification_id: {notification_id}  key: {key} \n")
+                except JSONDecodeError as e:
+                    print(e.response)
+
 
             if key == "L":
                 url = "http://127.0.0.1:5000/create/"
@@ -156,10 +170,14 @@ while True:
                 response = requests.post(url, data=params)
                 pprint.pprint(params)
                 # Get response
-                response_dict = json.loads(response.text)
-                print("\n")
-                pprint.pprint(response_dict)
-                with open(log_file, mode="a", encoding="utf-8") as f:
-                    f.write(f"user_id: {user_id} notification_id: {notification_id}  key: {key} \n")
+                try:
+                    response_dict = json.loads(response.text)
+                    print("\n")
+                    pprint.pprint(response_dict)
+                    with open(log_file, mode="a", encoding="utf-8") as f:
+                        f.write(f"user_id: {user_id} notification_id: {notification_id}  key: {key} \n")
+                except JSONDecodeError as e:
+                    print(e.response)
+
     else:
         continue

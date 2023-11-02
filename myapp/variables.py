@@ -5,7 +5,7 @@ DEFAULT_SERVER_IP_ADDRESS = '127.0.0.1'
 PORT = 5000
 
 # тестовый email
-EMAIL_FROM = 'vladimir.malchevskiy@gmail.com'
+EMAIL_FROM = 'vlad.........@gmail.com'
 
 # строка для подключения к mongoDB - for containers
 DB_ALIAS = 'mongodb'
@@ -22,17 +22,17 @@ SMTP_HOST = 'gmail.com'
 SMTP_PORT = 587
 
 # логин пользователя
-SMTP_LOGIN = 'vladimir.malchevskiy@gmail.com'
+SMTP_LOGIN = 'vlad..........@gmail.com'
 
 # пароль пользователя
-SMTP_PASSWORD ='qwhh hdax byse rzvj'
+SMTP_PASSWORD ='qwh.........'
 
-# email с которого будет отправлено сообщение
-EMAIL_TO = 'ecrvmal@yandex.ru'
+# email на который  будет отправлено сообщение
+EMAIL_TO = 'e.........@yandex.ru'
 
 # Имя отображаемое у получателя письма
 
-EMAIL_FROM_NAME ='API_SERVER<vladimir.malchevskiy@gmail.com>'
+EMAIL_FROM_NAME ='API_SERVER<vlad.............@gmail.com>'
 
 # Значение по умолчанию DATA
 DATA = {'some_field': 'some_value'}
