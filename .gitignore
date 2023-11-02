@@ -287,6 +287,6 @@ poetry.toml
 pyrightconfig.json
 
 # others
-variables.py
+*variables.py
 
 # End of https://www.toptal.com/developers/gitignore/api/python,pycharm

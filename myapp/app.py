@@ -27,8 +27,8 @@ from myapp.utils import arg_parser, hex_generator, request_data, note_normalizat
 app = Flask(__name__)
 api = Api(app)
 
-client = MongoClient(DB_URI)  # works for IDE
-# client = MongoClient(DB_ALIAS, DB_PORT)
+# client = MongoClient(DB_URI)                # works for IDE
+client = MongoClient(DB_ALIAS, DB_PORT)   # works with Docker
 
 db = client.flask_db
 note = db.note
