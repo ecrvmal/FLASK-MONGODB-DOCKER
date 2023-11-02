@@ -39,27 +39,29 @@ please run "client" application and perform:
 - press "R" for "POST" "registration" request
 With these commands you will create first record for user.
 
-## Client
+## Client application
 ### Client start
-to start client please un commands:
+to start client please run commands:
 ```shell
 pip install pprint
 pip install requests
-python client/client/py
+python client/client.py
 ```
 
 ### Client operations:
 #### 1-st level menu: 
 [G]et or [P]ost or [Q]uit or lis[T] ? : 
 
+[G] - for "GET" reqiest
+[P] - for  "POST" request
 [Q] - for exit program
 [T] - for full list of records in DB
 
-#### 2-nd level menu on GET:
+#### 2-nd level menu on "GET":
 Enter User_ID (or all) :
 need to enter user_id (3-letter for test)  or "all"
 
-#### 2-nd level menu on Post:
+#### 2-nd level menu on "POST":
 [R]egistration | new_[M]essage | new_[P]ost | new_[L]ogin | rea[D] | [Q]uit  : 
 need to enter
 - [R] - for registration , 3-digit user_id is generating automatically
@@ -69,9 +71,9 @@ need to enter
 - [D] - for mark message as "Read" , later need to enter 3-digit user_id
 - [Q] - for return to 1-st level menu
 
-# Operation datails:
+# Technical Requirements:
 ## Для целей тестирования используются 3-символьные идентификаторы пользователей и записей
-## Установку можно изменть в файле variables.py
+## Установку можно изменть в файле myapp/variables.py
 
 #### Пример уведомления в документе пользователя
 
