@@ -33,11 +33,11 @@ Access to server on port 5000
 The port can be configured in file variables.py
 
 ### 4. For DB Initiation:
-For DB Initiation after server starts to access to DB need to run "client" app
-and perform:
-- press "P" for post
-- press "R" for registration
-By this you will create first record for user.
+For DB Initiation after server started up  
+please run "client" application and perform:
+- press "P" for "POST" request
+- press "R" for "POST" "registration" request
+With these commands you will create first record for user.
 
 ## Client
 ### Client start
