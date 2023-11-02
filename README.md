@@ -21,7 +21,7 @@
 
 
 ## Implementation with docker-compose:
-### 1. Correct file variables.py
+### 1. Correct file myapp/variables.py
 enter correct data
 
 ### 2. Create & run docker image
