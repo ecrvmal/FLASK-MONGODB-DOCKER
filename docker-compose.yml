@@ -1,0 +1,48 @@
+version: "3.10"
+
+# Определяем все сервисы
+services:
+  # `flaskapp` - это наше python приложение
+  flaskapp:
+    # будем использовать docker образ на основе Dockerfile, из текущей папке
+    build:
+      context: .
+    # Построенный образ будет иметь имя flask-mongo
+#    image: flask-mongo
+    restart: on-failure
+
+
+    # Мы монтируем текущую папку проекта прямо внутрь docker контейнера
+    volumes:
+      - .:/app
+    # 5000 - мы пробрасываем этот порт из контейнера на локальную машину
+    ports:
+      - "5000:5000"
+    # Тут определяются переменные окружения которые будут доступны внутри контейнера
+    environment:
+      - FLASK_ENV=development
+      - MONGO_HOSTNAME=mongodb
+      - MONGO_PORT=27017
+    #  - FLASK_APP=app.py
+      - FLASK_RUN_HOST=0.0.0.0
+    # перед инициализацией текущего сервиса необходимо инициализировать  сервис mongo
+    depends_on:
+      - mongodb
+    # networks:
+      # - backend
+    command: flask run --host=0.0.0.0
+    links:
+      - mongodb
+
+    # Сервис предоставляющий нашему flask приложению MongoDB инстанс
+  mongodb:
+    # на основе официального docker образа mongo, кот будет скачан с dockerhub.io
+    # при первичной инициализации через `docker-compose`
+    image: mongo
+    # По-умолчанию MongoDB работает на порту 27017
+    ports:
+      - "27017:27017"
+    # networks:
+      # - backend
+# networks:
+  # backend:
