@@ -1,3 +1,7 @@
+"""
+The client module sends "GET and "POST" requests to server and
+get answer from server? according "the Technical Requirements" specification
+"""
 import json
 import pprint
 import requests
@@ -7,10 +11,7 @@ from requests import JSONDecodeError
 
 from client_utils import hex_generator, get_user_data
 
-"""
-The client function sends "GET and "POST" requests to server and 
-get answer from server
-"""
+
 
 url = "http://127.0.0.1:5000/list/"
 current_path = os.path.abspath(os.getcwd())
