@@ -12,7 +12,7 @@ DB_ALIAS = 'mongodb'
 DB_PORT = 27017
 
 # строка для подключения к mongoDB - for IDE           DB_URI = 'mongodb://127.0.0.1'
-# DB_URI = 'mongodb://127.0.0.1'
+DB_URI = 'mongodb://127.0.0.1'
 
 
 # хост smtp сервера

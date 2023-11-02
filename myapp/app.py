@@ -27,8 +27,8 @@ from myapp.utils import arg_parser, hex_generator, request_data, note_normalizat
 app = Flask(__name__)
 api = Api(app)
 
-# client = MongoClient(DB_URI)  # works for IDE
-client = MongoClient(DB_ALIAS, DB_PORT)
+client = MongoClient(DB_URI)  # works for IDE
+# client = MongoClient(DB_ALIAS, DB_PORT)
 
 db = client.flask_db
 note = db.note
@@ -140,9 +140,9 @@ def update_items_new(note_obj):
     """
     items, items_new = calc_items_new(note_obj)
     newdata = {}
-    # print(f'Update_items : note_obj: {note_obj}')
+    # print(f'Update_items : note_obj: {note_obj}  items: {items}  items_new {items_new}')
     if '_id' in note_obj:
-        note_id = note_obj['_id'].__str__()
+        note_id = note_obj['_id']
         if 'data' in note_obj:
             newdata['elements'] = items
             newdata['new'] = items_new
@@ -161,7 +161,7 @@ def create_notification():
     :return: A response object
     """
     data = request.form
-    print(f'got POST data: {data}')
+    # print(f'got POST data: {data}')
     if 'user_id' in data:
         req_user_id = data['user_id']
     else:
@@ -206,7 +206,7 @@ def create_notification():
             old_list.append(the_rec)
             db.note.update_one({'_id': note_id}, {'$set':{"list": old_list}}, upsert=False)
             update_items_new(the_note)
-            print(f"record with user_id: {req_user_id} updated with record_id: {req_target_id,}  key: {req_key} ")
+            # print(f"record with user_id: {req_user_id} updated with record_id: {req_target_id,}  key: {req_key} ")
             logger.info(f"Message request completed")
             return RESPONSE_200
         except Exception:
@@ -225,7 +225,7 @@ def create_notification():
             old_list.append(the_rec)
             db.note.update_one({'_id': note_id}, {'$set':{"list": old_list}}, upsert=False)
             update_items_new(the_note)
-            print(f"record with user_id: {req_user_id} updated with record_id: {req_target_id,}  key: {req_key} ")
+            # print(f"record with user_id: {req_user_id} updated with record_id: {req_target_id,}  key: {req_key} ")
             logger.info(f"Post request completed")
             return RESPONSE_200
         except Exception:
@@ -239,7 +239,7 @@ def create_notification():
             return RESPONSE_501
         try:
             send_email(subject="New Login", message=f"New Login with ID: {req_user_id}")
-            print(f"mail sent with info user_id: {req_user_id} to: {EMAIL_TO} ")
+            # print(f"mail sent with info user_id: {req_user_id} to: {EMAIL_TO} ")
             logger.info(f"Login request completed")
             return RESPONSE_200
         except Exception:
@@ -269,10 +269,10 @@ def notes_list():
             limit = request.args.get('limit')
         logger.info(f"got LIST request user_id: {user_id} ")
         the_note = get_note_by_userid(user_id)
-        print(f'line 270 {the_note}')
+        # print(f'line 270 {the_note}')
         if not the_note:
-            logger.info(f"list request failed")
-            return RESPONSE_404
+            logger.info(f"Record list is empty ")
+            return RESPONSE_200
         elif user_id == "all":
             result = []
             for el in the_note:
@@ -286,6 +286,7 @@ def notes_list():
             logger.info(f"list request completed")
             return response1
         else:
+            update_items_new(the_note)
             notes_lst = the_note['list']
             list_length = len(notes_lst)
             if skip and skip < list_length:
@@ -317,7 +318,7 @@ def read_notification():
     :return: Response_200 if the notification is successfully read,
     """
     data = request.form
-    print(f'got POST data: {data}')
+    # print(f'got POST data: {data}')
     if 'user_id' in data:
         req_user_id = data['user_id']
     else:
@@ -347,6 +348,7 @@ def read_notification():
                         notes_list[idx]['is_new'] = False
                         db.note.update_one({'_id': note_id}, {'$set': {"list": notes_list}}, upsert=False)
                         logger.info(f"READ request completed")
+                        update_items_new(the_note)
                         return RESPONSE_200
         logger.info(f"READ request : record to update not found")
         return RESPONSE_200

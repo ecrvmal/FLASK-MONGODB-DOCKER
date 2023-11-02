@@ -129,7 +129,7 @@ def calc_items_new(note_obj):
             if 'is_new' in el:
                 if el['is_new'] == True:
                     new_items += 1
-    print(f' obj: {note_obj} , items: {items} , is_new: {new_items}')
+    # print(f' calc: obj: {note_obj} , items: {items} , is_new: {new_items}')
     return items, new_items
 
 
